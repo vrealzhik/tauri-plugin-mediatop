@@ -1,3 +1,3 @@
 [default]
 description = "Default permissions for the plugin"
-permissions = ["deny-pick-and-convert-video"]
+permissions = ["allow-pick-and-convert-video"]
