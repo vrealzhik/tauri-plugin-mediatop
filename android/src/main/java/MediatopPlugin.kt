@@ -43,7 +43,7 @@ class MediaConverterPlugin(private val activity: Activity) : Plugin(activity) {
             }
 
             val uri: Uri = result.data!!.data!!
-            val context = activity.applicationContext
+            val context = activity
 
             var inputPath: String? = null
             if (uri.scheme == "file") {
