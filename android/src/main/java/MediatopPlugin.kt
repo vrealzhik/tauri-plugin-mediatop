@@ -73,7 +73,7 @@ class MediatopPlugin(private val activity: Activity) : Plugin(activity) {
             outputDir.mkdirs()
             val outputPath = File(outputDir, outputFileName).absolutePath
 
-            val cmd = arrayOf(
+            val cmd = JSObject(
                 "-i", inputPath,
                 "-vn",                    
                 "-acodec", "libmp3lame",  
