@@ -25,9 +25,12 @@ import java.io.InputStream
 class MediatopPlugin(private val activity: Activity) : Plugin(activity) {
 
     private var pendingInvoke: Invoke? = null
+    private var pendingArgs: ConvertArgs? = null
 
     @Command
     fun pickAndConvertVideo(invoke: Invoke) {
+        val args = invoke.parseArgs(ConvertArgs::class.java)
+        pendingArgs = args
         pendingInvoke = invoke
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
         intent.type = "video/*"
@@ -36,7 +39,7 @@ class MediatopPlugin(private val activity: Activity) : Plugin(activity) {
 
     @ActivityCallback
     fun onVideoSelected(invoke: Invoke, result: ActivityResult) {
-        val args = invoke.invokeData.get("args") as? ConvertArgs ?: ConvertArgs()
+        val localArgs = pendingArgs
         try {
             if (result.resultCode != Activity.RESULT_OK || result.data == null) {
                 pendingInvoke?.reject("User cancelled video selection")
@@ -74,7 +77,7 @@ class MediatopPlugin(private val activity: Activity) : Plugin(activity) {
             outputDir.mkdirs()
             val outputPath = File(outputDir, outputFileName).absolutePath
 
-            val cmd = "-i \"$inputPath\" -ss \"$args.startTime\" -t "\$args.duration"\ -vn -acodec libmp3lame -ab 128k -ar 44100 -ac 2 \"$outputPath\""
+            val cmd = "-i \"$inputPath\" -ss \"$localArgs.startTime\" -t "\$localArgs.duration"\ -vn -acodec libmp3lame -ab 128k -ar 44100 -ac 2 \"$outputPath\""
 
             val session: FFmpegSession = FFmpegKit.execute(cmd)
 
