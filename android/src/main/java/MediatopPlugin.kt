@@ -36,6 +36,7 @@ class MediatopPlugin(private val activity: Activity) : Plugin(activity) {
 
     @ActivityCallback
     fun onVideoSelected(invoke: Invoke, result: ActivityResult) {
+        val args = invoke.invokeData.get("args") as? ConvertArgs ?: ConvertArgs()
         try {
             if (result.resultCode != Activity.RESULT_OK || result.data == null) {
                 pendingInvoke?.reject("User cancelled video selection")
@@ -73,7 +74,7 @@ class MediatopPlugin(private val activity: Activity) : Plugin(activity) {
             outputDir.mkdirs()
             val outputPath = File(outputDir, outputFileName).absolutePath
 
-            val cmd = "-i \"$inputPath\" -vn -acodec libmp3lame -ab 128k -ar 44100 -ac 2 \"$outputPath\""
+            val cmd = "-i \"$inputPath\" -ss \"$args.startTime\" -t "\$args.duration"\ -vn -acodec libmp3lame -ab 128k -ar 44100 -ac 2 \"$outputPath\""
 
             val session: FFmpegSession = FFmpegKit.execute(cmd)
 

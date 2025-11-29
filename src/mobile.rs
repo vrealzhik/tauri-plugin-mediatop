@@ -25,7 +25,7 @@ pub fn init<R: Runtime, C: DeserializeOwned>(
 pub struct Mediatop<R: Runtime>(PluginHandle<R>);
 
 impl<R: Runtime> Mediatop<R> {
-    pub fn pick_and_convert_video(&self) -> crate::Result<MediaResult> {
+    pub fn pick_and_convert_video(&self, payload: MediaRequest) -> crate::Result<MediaResult> {
         self.0
             .run_mobile_plugin("pickAndConvertVideo", ())
             .map_err(Into::into)

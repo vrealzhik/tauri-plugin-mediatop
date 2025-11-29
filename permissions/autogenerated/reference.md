@@ -4,7 +4,7 @@ Default permissions for the plugin
 
 #### This default permission set includes the following:
 
-- `deny-pick-and-convert-video`
+- `allow-pick-and-convert-video`
 
 ## Permission Table
 

@@ -14,7 +14,7 @@ pub fn init<R: Runtime, C: DeserializeOwned>(
 pub struct Mediatop<R: Runtime>(AppHandle<R>);
 
 impl<R: Runtime> Mediatop<R> {
-    pub fn pick_and_convert_video(&self) -> crate::Result<MediaResult> {
+    pub fn pick_and_convert_video(&self, payload: MediaRequest) -> crate::Result<MediaResult> {
         Ok(MediaResult {
             success: Some(bool::default()),
             output_path: Some(String::default()),
