@@ -72,16 +72,8 @@ class MediatopPlugin(private val activity: Activity) : Plugin(activity) {
             val outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
             outputDir.mkdirs()
             val outputPath = File(outputDir, outputFileName).absolutePath
-
-            val cmd = JSObject(
-                "-i", inputPath,
-                "-vn",                    
-                "-acodec", "libmp3lame",  
-                "-ab", "128k",            
-                "-ar", "44100",           
-                "-ac", "2",               
-                outputPath
-            )
+            
+            val cmd = "-i \"$inputPath\" -vn -acodec libmp3lame -ab 128k -ar 44100 -ac 2 \"outputPath\""
 
             val session: FFmpegSession = FFmpegKit.execute(cmd)
 
