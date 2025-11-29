@@ -22,7 +22,7 @@ import java.io.FileOutputStream
 import java.io.InputStream
 
 @TauriPlugin
-class MediaConverterPlugin(private val activity: Activity) : Plugin(activity) {
+class MediatopPlugin(private val activity: Activity) : Plugin(activity) {
 
     private var pendingInvoke: Invoke? = null
 
